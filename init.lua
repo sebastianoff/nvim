@@ -75,28 +75,28 @@ opt.clipboard = "unnamedplus"
 
 opt.list = true
 opt.listchars = {
-      tab = '»·',
-      lead = '·',
-      trail = '·',
-      multispace = '·',
-      nbsp = '␣',
-      extends = '›',
-      precedes = '‹',
+        tab = '»·',
+        lead = '·',
+        trail = '·',
+        multispace = '·',
+        nbsp = '␣',
+        extends = '›',
+        precedes = '‹',
 }
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
+        vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-      { 'kylechui/nvim-surround', version = '*', config = function() require('nvim-surround').setup() end },
-      { 'numToStr/Comment.nvim', opts = {} },
-      { 'tpope/vim-repeat' },
-      { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {} },
-      { 'tpope/vim-sleuth' },
-      { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings() end },
-      { 'echasnovski/mini.ai', version = '*', opts = {} },
-      { 'mg979/vim-visual-multi', branch = 'master' },
+        { 'kylechui/nvim-surround', version = '*', config = function() require('nvim-surround').setup() end },
+        { 'numToStr/Comment.nvim', opts = {} },
+        { 'tpope/vim-repeat' },
+        { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {} },
+        { 'tpope/vim-sleuth' },
+        { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings() end },
+        { 'echasnovski/mini.ai', version = '*', opts = {} },
+        { 'mg979/vim-visual-multi', branch = 'master' },
 })
