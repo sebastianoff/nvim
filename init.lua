@@ -137,6 +137,7 @@ require('lazy').setup({
                   config = function()
                             require('catppuccin').setup({
                                       flavour = 'mocha',
+                                      no_italic = true,
                                       transparent_background = false,
                                       integrations = {
                                                 leap = true,
