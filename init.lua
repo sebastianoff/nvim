@@ -91,6 +91,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+        {
+          'catppuccin/nvim',
+          name = 'catppuccin',
+          lazy = false,
+          priority = 1000,
+          config = function()
+                    require('catppuccin').setup({
+                              flavour = 'mocha',
+                              transparent_background = false,
+                              integrations = {
+                                        leap = true,
+                              },
+                    })
+                    vim.cmd.colorscheme('catppuccin')
+          end,
+        },
         { 'kylechui/nvim-surround', version = '*', config = function() require('nvim-surround').setup() end },
         { 'numToStr/Comment.nvim', opts = {} },
         { 'tpope/vim-repeat' },
