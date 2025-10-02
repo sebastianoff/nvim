@@ -201,5 +201,62 @@ require('lazy').setup({
                         },
                         extensions = { 'quickfix', 'lazy' },
                 },
+        },
+        {
+                  "ibhagwan/fzf-lua",
+                  dependencies = { "nvim-tree/nvim-web-devicons" },
+                  keys = function()
+                            local function project_files()
+                              vim.fn.system("git rev-parse --is-inside-work-tree")
+                              if vim.v.shell_error == 0 then
+                                        require("fzf-lua").git_files()
+                              else
+                                        require("fzf-lua").files()
+                              end
+                    end
+                    return {
+                              { "<C-p>",      project_files,                                   desc = "Find files" },
+                              { "<leader>ff", project_files,                                   desc = "Find files" },
+                              { "<leader>fg", function() require("fzf-lua").live_grep() end,   desc = "Live grep" },
+                              { "<leader>fw", function() require("fzf-lua").grep_cword() end,  desc = "Grep word under cursor" },
+                              { "<leader>fb", function() require("fzf-lua").buffers() end,     desc = "Buffers" },
+                              { "<leader>fo", function() require("fzf-lua").oldfiles() end,    desc = "Recent files" },
+                              { "<leader>fs", function() require("fzf-lua").git_status() end,  desc = "Git status" },
+                              { "<leader>fr", function() require("fzf-lua").resume() end,      desc = "Resume last picker" },
+                              { "<leader>fh", function() require("fzf-lua").helptags() end,    desc = "Help tags" },
+                              { "<leader>fw", function() require("fzf-lua").grep_visual() end, desc = "Grep visual selection", mode = "v" },
+                    }
+                  end,
+                  opts = {
+                            fzf_opts = {
+                                      ["--layout"] = "reverse",
+                                      ["--info"]   = "hidden",
+                                      ["--ansi"]   = true,
+                            },
+                            fzf_colors = {
+                                      ["pointer"] = { "fg", "Normal" }, 
+                                      ["prompt"]  = { "fg", "Normal" },
+                            },
+                            winopts = {
+                                      height = 0.90,
+                                      width  = 0.85,
+                                      border = "rounded",
+                                      preview = { layout = "flex", flip_columns = 120 },
+                            },
+                            files = {
+                                      prompt   = "> ",
+                                      fd_opts  = [[--color=never --hidden --type f --type l --exclude .git]],
+                                      rg_opts  = [[--color=never --hidden --files -g "!.git"]],
+                                      git_icons = true,
+                                      file_icons = true,
+                                      color_icons = true,
+                            },
+                            grep = {
+                                      prompt  = "-- ",
+                                      rg_opts = [[--column --line-number --no-heading --color=always --smart-case --hidden -g "!.git"]],
+                            },
+                            buffers = { prompt = "> ", sort_lastused = true, ignore_current_buffer = true },
+                            oldfiles = { prompt = "> ", include_current_session = true },
+                  },
         }
 })
