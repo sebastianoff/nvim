@@ -33,7 +33,7 @@ map({ 'n', 'v' }, '<leader>p', '"+p', opts)
 map({ 'n', 'v' }, '<leader>P', '"+P', opts)
 
 map('n', '<leader>a', 'ggVG', opts)
-
+-- window management
 map('n', '<leader>sv', ':vsplit<CR>', opts)
 map('n', '<leader>sh', ':split<CR>', opts)
 map('n', '<leader>sc', ':close<CR>', opts)
@@ -41,6 +41,11 @@ map('n', '<C-h>', '<C-w>h', opts)
 map('n', '<C-j>', '<C-w>j', opts)
 map('n', '<C-k>', '<C-w>k', opts)
 map('n', '<C-l>', '<C-w>l', opts)
+-- resizing
+map('n', '<A-Left>',  '<cmd>vertical resize -4<CR>', { desc = 'Make narrower', silent = true })
+map('n', '<A-Right>', '<cmd>vertical resize +4<CR>', { desc = 'Make wider', silent = true })
+map('n', '<A-Up>',    '<cmd>resize +2<CR>', { desc = 'Make taller', silent = true })
+map('n', '<A-Down>',  '<cmd>resize -2<CR>', { desc = 'Make shorter', silent = true })
 
 map('v', '<', '<gv', opts)
 map('v', '>', '>gv', opts)
@@ -65,7 +70,6 @@ map('n', '<leader>R', '<cmd>AsyncRun -repeat<CR>', { desc = 'Repeat last async r
 -- quick fix
 map('n', '<leader>co', '<cmd>copen<CR>', { desc = 'Quickfix open' })
 map('n', '<leader>cc', '<cmd>cclose<CR>', { desc = 'Quickfix close' })
-
 -- multi-cursor thingy, so I can quickly add X cursor above or below
 local function vm_add(dir)
       local plug = (dir == 'down') and '<Plug>(VM-Add-Cursor-Down)' or '<Plug>(VM-Add-Cursor-Up)'
@@ -98,6 +102,20 @@ opt.listchars = {
         extends = '›',
         precedes = '‹',
 }
+
+opt.scrolloff = 6
+opt.sidescrolloff = 6
+opt.updatetime = 200
+opt.confirm = true
+
+opt.undofile = true
+
+opt.breakindent = true
+opt.linebreak = true
+opt.showbreak = '↳ '
+
+opt.grepprg = "rg --vimgrep --smart-case --hidden --glob=!.git/"
+opt.grepformat = "%f:%l:%c:%m"
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -137,4 +155,5 @@ require('lazy').setup({
         { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings() end },
         { 'echasnovski/mini.ai', version = '*', opts = {} },
         { 'mg979/vim-visual-multi', branch = 'master' },
+        { 'lewis6991/gitsigns.nvim', opts = {} },
 })
