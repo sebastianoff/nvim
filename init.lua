@@ -61,10 +61,10 @@ map('n', '<leader>r', function()
         end)
 end, { desc = 'Run shell command' })
 -- repeat last AsyncRun
-vim.keymap.set('n', '<leader>R', '<cmd>AsyncRun -repeat<CR>', { desc = 'Repeat last async run' })
+map('n', '<leader>R', '<cmd>AsyncRun -repeat<CR>', { desc = 'Repeat last async run' })
 -- quick fix
-vim.keymap.set('n', '<leader>co', '<cmd>copen<CR>', { desc = 'Quickfix open' })
-vim.keymap.set('n', '<leader>cc', '<cmd>cclose<CR>', { desc = 'Quickfix close' })
+map('n', '<leader>co', '<cmd>copen<CR>', { desc = 'Quickfix open' })
+map('n', '<leader>cc', '<cmd>cclose<CR>', { desc = 'Quickfix close' })
 
 -- multi-cursor thingy, so I can quickly add X cursor above or below
 local function vm_add(dir)
