@@ -203,16 +203,23 @@ require("lazy").setup(
                 vim.g.asyncrun_bell = 0
             end
         },
-        {"kylechui/nvim-surround", version = "*", config = function()
+        {
+            "kylechui/nvim-surround",
+            version = "*",
+            config = function()
                 require("nvim-surround").setup()
-            end},
+            end
+        },
         {"numToStr/Comment.nvim", opts = {}},
         {"tpope/vim-repeat"},
         {"windwp/nvim-autopairs", event = "InsertEnter", opts = {}},
         {"tpope/vim-sleuth"},
-        {"ggandor/leap.nvim", config = function()
+        {
+            "ggandor/leap.nvim",
+            config = function()
                 require("leap").add_default_mappings()
-            end},
+            end
+        },
         {"echasnovski/mini.ai", version = "*", opts = {}},
         {"mg979/vim-visual-multi", branch = "master"},
         {"lewis6991/gitsigns.nvim", opts = {}},
@@ -271,30 +278,63 @@ require("lazy").setup(
                 return {
                     {"<C-p>", project_files, desc = "Find files"},
                     {"<leader>ff", project_files, desc = "Find files"},
-                    {"<leader>fg", function()
+                    {
+                        "<leader>fg",
+                        function()
                             require("fzf-lua").live_grep()
-                        end, desc = "Live grep"},
-                    {"<leader>fw", function()
+                        end,
+                        desc = "Live grep"
+                    },
+                    {
+                        "<leader>fw",
+                        function()
                             require("fzf-lua").grep_cword()
-                        end, desc = "Grep word under cursor"},
-                    {"<leader>fb", function()
+                        end,
+                        desc = "Grep word under cursor"
+                    },
+                    {
+                        "<leader>fb",
+                        function()
                             require("fzf-lua").buffers()
-                        end, desc = "Buffers"},
-                    {"<leader>fo", function()
+                        end,
+                        desc = "Buffers"
+                    },
+                    {
+                        "<leader>fo",
+                        function()
                             require("fzf-lua").oldfiles()
-                        end, desc = "Recent files"},
-                    {"<leader>fs", function()
+                        end,
+                        desc = "Recent files"
+                    },
+                    {
+                        "<leader>fs",
+                        function()
                             require("fzf-lua").git_status()
-                        end, desc = "Git status"},
-                    {"<leader>fr", function()
+                        end,
+                        desc = "Git status"
+                    },
+                    {
+                        "<leader>fr",
+                        function()
                             require("fzf-lua").resume()
-                        end, desc = "Resume last picker"},
-                    {"<leader>fh", function()
+                        end,
+                        desc = "Resume last picker"
+                    },
+                    {
+                        "<leader>fh",
+                        function()
                             require("fzf-lua").helptags()
-                        end, desc = "Help tags"},
-                    {"<leader>fw", function()
+                        end,
+                        desc = "Help tags"
+                    },
+                    {
+                        "<leader>fw",
+                        function()
                             require("fzf-lua").grep_visual()
-                        end, desc = "Grep visual selection", mode = "v"}
+                        end,
+                        desc = "Grep visual selection",
+                        mode = "v"
+                    }
                 }
             end,
             opts = {
@@ -378,41 +418,61 @@ require("lazy").setup(
                     {
                         keymap = {
                             preset = "super-tab",
-                            ["<C-j>"] = { "select_next" },
-                            ["<C-k>"] = { "select_prev" },
-                            ["<A-1>"] = {function(cmp)
+                            ["<C-j>"] = {"select_next"},
+                            ["<C-k>"] = {"select_prev"},
+                            ["<A-1>"] = {
+                                function(cmp)
                                     cmp.accept({index = 1})
-                                end},
-                            ["<A-2>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-2>"] = {
+                                function(cmp)
                                     cmp.accept({index = 2})
-                                end},
-                            ["<A-3>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-3>"] = {
+                                function(cmp)
                                     cmp.accept({index = 3})
-                                end},
-                            ["<A-4>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-4>"] = {
+                                function(cmp)
                                     cmp.accept({index = 4})
-                                end},
-                            ["<A-5>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-5>"] = {
+                                function(cmp)
                                     cmp.accept({index = 5})
-                                end},
-                            ["<A-6>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-6>"] = {
+                                function(cmp)
                                     cmp.accept({index = 6})
-                                end},
-                            ["<A-7>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-7>"] = {
+                                function(cmp)
                                     cmp.accept({index = 7})
-                                end},
-                            ["<A-8>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-8>"] = {
+                                function(cmp)
                                     cmp.accept({index = 8})
-                                end},
-                            ["<A-9>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-9>"] = {
+                                function(cmp)
                                     cmp.accept({index = 9})
-                                end},
-                            ["<A-0>"] = {function(cmp)
+                                end
+                            },
+                            ["<A-0>"] = {
+                                function(cmp)
                                     cmp.accept({index = 10})
-                                end}
+                                end
+                            }
                         },
                         completion = {
-                            documentation = { auto_show = true };
+                            documentation = {auto_show = true},
                             menu = {
                                 draw = {
                                     columns = {{"item_idx"}, {"kind_icon"}, {"label", "label_description", gap = 1}},
