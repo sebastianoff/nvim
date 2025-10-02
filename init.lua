@@ -2,6 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 local map = vim.keymap.set
+local input = vim.ui.input
 local opts = { noremap = true, silent = true }
 
 map({ 'n', 'v' }, '<leader><leader>', ':', { noremap = true })
@@ -51,6 +52,20 @@ map('i', '<A-k>', '<Esc>:m .-2<CR>==gi', opts)
 map('v', '<A-j>', ":m '>+1<CR>gv=gv", opts)
 map('v', '<A-k>', ":m '<-2<CR>gv=gv", opts)
 
+-- async-run
+map('n', '<leader>r', function()
+        input({}, function(cmd)
+                if cmd and #cmd > 0 then
+                        vim.cmd('AsyncRun ' .. cmd)
+                end
+        end)
+end, { desc = 'Run shell command' })
+-- repeat last AsyncRun
+vim.keymap.set('n', '<leader>R', '<cmd>AsyncRun -repeat<CR>', { desc = 'Repeat last async run' })
+-- quick fix
+vim.keymap.set('n', '<leader>co', '<cmd>copen<CR>', { desc = 'Quickfix open' })
+vim.keymap.set('n', '<leader>cc', '<cmd>cclose<CR>', { desc = 'Quickfix close' })
+
 -- multi-cursor thingy, so I can quickly add X cursor above or below
 local function vm_add(dir)
       local plug = (dir == 'down') and '<Plug>(VM-Add-Cursor-Down)' or '<Plug>(VM-Add-Cursor-Up)'
@@ -92,20 +107,27 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
         {
-          'catppuccin/nvim',
-          name = 'catppuccin',
-          lazy = false,
-          priority = 1000,
-          config = function()
-                    require('catppuccin').setup({
-                              flavour = 'mocha',
-                              transparent_background = false,
-                              integrations = {
-                                        leap = true,
-                              },
-                    })
-                    vim.cmd.colorscheme('catppuccin')
-          end,
+                  'catppuccin/nvim',
+                  name = 'catppuccin',
+                  lazy = false,
+                  priority = 1000,
+                  config = function()
+                            require('catppuccin').setup({
+                                      flavour = 'mocha',
+                                      transparent_background = false,
+                                      integrations = {
+                                                leap = true,
+                                      },
+                            })
+                            vim.cmd.colorscheme('catppuccin')
+                  end,
+        },
+        {
+                'skywind3000/asyncrun.vim',
+                init = function() 
+                        vim.g.asyncrun_open = 10
+                        vim.g.asyncrun_bell = 0
+                end,
         },
         { 'kylechui/nvim-surround', version = '*', config = function() require('nvim-surround').setup() end },
         { 'numToStr/Comment.nvim', opts = {} },
