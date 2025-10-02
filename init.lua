@@ -117,6 +117,11 @@ opt.showbreak = '↳ '
 opt.grepprg = "rg --vimgrep --smart-case --hidden --glob=!.git/"
 opt.grepformat = "%f:%l:%c:%m"
 
+opt.laststatus = 3
+opt.showmode = false 
+
+opt.cmdheight = 0
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
         vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
@@ -135,6 +140,7 @@ require('lazy').setup({
                                       transparent_background = false,
                                       integrations = {
                                                 leap = true,
+                                                lualine = true,
                                       },
                             })
                             vim.cmd.colorscheme('catppuccin')
@@ -156,4 +162,44 @@ require('lazy').setup({
         { 'echasnovski/mini.ai', version = '*', opts = {} },
         { 'mg979/vim-visual-multi', branch = 'master' },
         { 'lewis6991/gitsigns.nvim', opts = {} },
+        {
+                'nvim-lualine/lualine.nvim',
+                dependencies = { 'nvim-tree/nvim-web-devicons' },
+                opts = {
+                        options = {
+                                theme = 'catppuccin',
+                                globalstatus = true,
+                                icons_enabled = true,
+                                section_separators = { left = '', right = '' },
+                                component_separators = { left = '│', right = '│' },
+                                disabled_filetypes = { statusline = { 'alpha', 'starter' } },
+                        },
+                        sections = {
+                                lualine_a = { { 'mode' } },
+                                lualine_b = { 'branch', 'diff' },
+                                lualine_c = {
+                                        { 'filename', path = 1, symbols = { modified = ' [+]', readonly = ' ', unnamed = '[No Name]' } },
+                                },
+                                lualine_x = {
+                                  {
+                                          'diagnostics',
+                                          sources = { 'nvim_diagnostic' },
+                                          symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' },
+                                  },
+                                  'filetype',
+                                },
+                                lualine_y = { 'progress' },
+                                lualine_z = { 'location' },
+                        },
+                        inactive_sections = {
+                                lualine_a = {},
+                                lualine_b = {},
+                                lualine_c = { { 'filename', path = 1 } },
+                                lualine_x = { 'location' },
+                                lualine_y = {},
+                                lualine_z = {},
+                        },
+                        extensions = { 'quickfix', 'lazy' },
+                },
+        }
 })
