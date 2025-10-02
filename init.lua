@@ -215,6 +215,20 @@ require("lazy").setup(
         {"windwp/nvim-autopairs", event = "InsertEnter", opts = {}},
         {"tpope/vim-sleuth"},
         {
+            "folke/which-key.nvim",
+            event = "VeryLazy",
+            opts = {preset = "helix"},
+            keys = {
+                {
+                    "<leader>?",
+                    function()
+                        require("which-key").show({global = false})
+                    end,
+                    desc = "Buffer Local Keymaps (which-key)"
+                }
+            }
+        },
+        {
             "ggandor/leap.nvim",
             config = function()
                 require("leap").add_default_mappings()
