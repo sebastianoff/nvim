@@ -66,8 +66,8 @@ local function qf_prev()
     vim.cmd("normal! zz")
 end
 
-map("n", "<leader>.", qf_next, {desc = "Quickfix next", silent = true})
-map("n", "<leader>,", qf_prev, {desc = "Quickfix prev", silent = true})
+map("n", "]q", qf_next, {desc = "Quickfix next"})
+map("n", "[q", qf_prev, {desc = "Quickfix prev"})
 
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
@@ -377,7 +377,9 @@ require("lazy").setup(
                 require("blink.cmp").setup(
                     {
                         keymap = {
-                            preset = "enter",
+                            preset = "super-tab",
+                            ["<C-j>"] = { "select_next" },
+                            ["<C-k>"] = { "select_prev" },
                             ["<A-1>"] = {function(cmp)
                                     cmp.accept({index = 1})
                                 end},
@@ -410,6 +412,7 @@ require("lazy").setup(
                                 end}
                         },
                         completion = {
+                            documentation = { auto_show = true };
                             menu = {
                                 draw = {
                                     columns = {{"item_idx"}, {"kind_icon"}, {"label", "label_description", gap = 1}},
